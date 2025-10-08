@@ -37,18 +37,26 @@ public class User {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+
+    @Column(nullable = false)
+    @Builder.Default
+    private boolean verified = false;
+
+    private String verificationToken;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(name, user.name) && Objects.equals(createdAt, user.createdAt);
+        return Objects.equals(id, user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, name, createdAt);
+        return Objects.hashCode(id);
     }
+
 
     @PrePersist
     protected void onCreate() {
